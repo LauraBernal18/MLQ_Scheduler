@@ -24,7 +24,7 @@ import java.util.List;
  * Lines starting with '#' are ignored.
  *
  * @author Laura
- * @version 1.0
+ * @version 1.2
  * @since 2025-10
  */
 public class FileParser {

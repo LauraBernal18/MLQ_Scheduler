@@ -4,6 +4,9 @@ package sos.mlq.model;
  * Represents a process in the system for the MLQ (Multilevel Queue) scheduling algorithm.
  * Each process has an ID, burst time, arrival time, queue level, and calculated metrics.
  *
+ * <p>This class is the base data structure for the simulation and is used by
+ * all queue types (RR, STCF) and the MLQ scheduler itself.</p>
+ *
  * @author Laura
  * @version 1.1
  * @since 2025-2

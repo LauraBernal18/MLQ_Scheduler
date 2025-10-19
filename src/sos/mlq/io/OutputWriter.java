@@ -14,7 +14,7 @@ import java.util.List;
  * Response Time (RT), and Turnaround Time (TAT).
  *
  * @author Laura
- * @version 1.0
+ * @version 1.3
  * @since 2025-10
  */
 public class OutputWriter {
@@ -28,7 +28,7 @@ public class OutputWriter {
      */
     public void writeResults(String filePath, List<Process> processes) throws IOException {
         try (FileWriter writer = new FileWriter(filePath)) {
-            writer.write("# label; BT; AT; Q; WT; CT; RT; TAT\n");
+            writer.write("# Etiqueta; BT; AT; Q; WT; CT; RT; TAT\n");
 
             double totalWT = 0, totalCT = 0, totalRT = 0, totalTAT = 0;
 

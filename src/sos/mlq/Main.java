@@ -13,10 +13,15 @@ import java.util.List;
  * and writes the results to an output file.
  *
  * @author Laura
- * @version 1.0
+ * @version 1.1
  * @since 2025-10
  */
 public class Main {
+    /**
+     * Main method that orchestrates the reading, scheduling, and writing process.
+     *
+     * @param args command-line arguments (not used in this implementation)
+     */
 
     public static void main(String[] args) {
         String inputFile = "src/resources/mlq001.txt";
@@ -27,17 +32,20 @@ public class Main {
             FileParser parser = new FileParser();
             List<Process> processes = parser.readProcesses(inputFile);
 
-            // Create and run scheduler
+            // Create scheduler and add all processes
             MLQScheduler scheduler = new MLQScheduler();
             for (Process p : processes) {
                 scheduler.addProcess(p);
             }
+
+            //Execute the scheduling algorithm
             scheduler.executeAll();
 
-            // Write results
+            // Write results to output file
             OutputWriter writer = new OutputWriter();
             writer.writeResults(outputFile, scheduler.getAllProcesses());
 
+            //Confirmation message
             System.out.println("Results saved to: " + outputFile);
 
         } catch (Exception e) {
