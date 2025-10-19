@@ -20,7 +20,7 @@ public class Main {
 
     public static void main(String[] args) {
         String inputFile = "src/resources/mlq001.txt";
-        String outputFile = "src/resources/output_mlq001.txt";
+        String outputFile = "src/resources/output_mlq0012.txt";
 
         try {
             // Read processes

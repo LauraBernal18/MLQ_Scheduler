@@ -9,10 +9,11 @@ import java.util.Queue;
  * within the Multilevel Queue (MLQ) scheduling algorithm.
  *
  * Each queue (e.g., Round Robin, STCF, FCFS) will inherit from this class
- * and implement its own scheduling logic in the {@link #execute()} method.
+ * and implement its own scheduling logic in the {@link #execute(int)} method.
+
  *
  * @author Laura Bernal
- * @version 1.0
+ * @version 1.2
  * @since 2025-10
  */
 public abstract class SchedulerQueue {
@@ -37,11 +38,14 @@ public abstract class SchedulerQueue {
     }
 
     /**
-     * Abstract method that must be implemented by each subclass.
-     * Defines how the queue executes its processes according to
-     * its scheduling policy.
+     * Executes all processes in this queue starting from a given global time.
+     * Each subclass must implement its own scheduling logic.
+     *
+     * @param startTime the global time when this queue starts executing
+     * @return the global time after this queue finishes all its processes
      */
-    public abstract void execute();
+    public abstract int execute(int startTime);
+
 
     /**
      * Adds a process to the queue.
