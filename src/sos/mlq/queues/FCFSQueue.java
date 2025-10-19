@@ -42,14 +42,9 @@ public class FCFSQueue extends SchedulerQueue {
         while (!processes.isEmpty()) {
             Process p = processes.poll();
 
-            // If the process arrives after current time, wait until it arrives
-            if (p.getArrivalTime() > currentTime) {
-                currentTime = p.getArrivalTime();
-            }
-
             // Record response time if it's the first time running
             if (p.getResponseTime() == -1 && currentTime >= p.getArrivalTime()) {
-                p.setResponseTime(currentTime - p.getArrivalTime());
+                p.setResponseTime(currentTime);
             }
 
             // Execute process completely
