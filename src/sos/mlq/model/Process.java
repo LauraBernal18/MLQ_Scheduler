@@ -35,6 +35,7 @@ public class Process {
         this.originalBurstTime = burstTime; // ← keeps the original value
         this.arrivalTime = arrivalTime;
         this.queueLevel = queueLevel;
+        this.responseTime =-1; //means: not yet responded
     }
 
     // Getters and setters for each attribute

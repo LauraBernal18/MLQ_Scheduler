@@ -37,8 +37,8 @@ public class RRQueue extends SchedulerQueue {
      * If the process is not completed, it is added again to the queue.
      */
     @Override
-    public void execute() {
-        int currentTime = 0; // keeps track of total CPU time
+    public int execute(int startTime) {
+        int currentTime = startTime; // keeps track of total CPU time
 
         while (!processes.isEmpty()) {
             Process p = processes.poll(); // take first process from the queue
@@ -49,7 +49,7 @@ public class RRQueue extends SchedulerQueue {
             }
 
             // if first time execution, record response time
-            if (p.getResponseTime() == 0 && currentTime >= p.getArrivalTime()) {
+            if (p.getResponseTime() == -1 && currentTime >= p.getArrivalTime()) {
                 p.setResponseTime(currentTime - p.getArrivalTime());
             }
 
@@ -68,6 +68,7 @@ public class RRQueue extends SchedulerQueue {
                 processes.add(p);
             }
         }
+        return currentTime;
     }
 }
 

@@ -1,71 +1,44 @@
 package sos.mlq.queues;
 
 import sos.mlq.model.Process;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
- * Implements the Shortest Time to Completion First (STCF) scheduling algorithm.
- *
- * This algorithm always selects the process with the shortest remaining burst time.
- * It is a preemptive version of the Shortest Job First (SJF) scheduling algorithm.
- *
- * Each time a new process arrives, the scheduler compares remaining times and
- * decides which process should execute next.
- *
- * @author Laura
- * @version 1.0
- * @since 2025-10
+ * Implements Shortest Time to Completion First (STCF) scheduling.
  */
 public class STCFQueue extends SchedulerQueue {
 
-    /**
-     * Executes the STCF scheduling for all processes in this queue.
-     * Calculates completion, turnaround, waiting, and response times.
-     */
+    public STCFQueue() {
+        this.processes = new LinkedList<>();
+    }
+
     @Override
-    public void execute() {
-        ArrayList<Process> processList = new ArrayList<>(processes);
-        int n = processList.size();
+    public int execute(int startTime) {
+        List<Process> list = new ArrayList<>(processes);
+        processes.clear();
 
-        int currentTime = 0;
-        int completed = 0;
+        int currentTime = startTime;
 
-        while (completed < n) {
-            Process shortest = null;
-            int minTime = Integer.MAX_VALUE;
+        while (!list.isEmpty()) {
+            // Find process with smallest remaining burst
+            Process shortest = list.stream()
+                    .min(Comparator.comparingInt(Process::getBurstTime))
+                    .orElse(null);
 
-            // Find process with the smallest remaining burst time
-            for (Process p : processList) {
-                if (p.getArrivalTime() <= currentTime && p.getBurstTime() > 0) {
-                    if (p.getBurstTime() < minTime) {
-                        minTime = p.getBurstTime();
-                        shortest = p;
-                    }
-                }
-            }
+            if (shortest == null) break;
 
-            if (shortest == null) {
-                currentTime++;
-                continue;
-            }
-
-            // If process is executing for the first time, record response time
-            if (shortest.getResponseTime() == 0 && currentTime >= shortest.getArrivalTime()) {
+            // Run process
+            if (shortest.getResponseTime() == -1 && currentTime >= shortest.getArrivalTime()) {
                 shortest.setResponseTime(currentTime - shortest.getArrivalTime());
             }
 
-            // Execute process for 1 time unit
-            shortest.setBurstTime(shortest.getBurstTime() - 1);
-            currentTime++;
-
-            // If process finishes, record all metrics
-            if (shortest.getBurstTime() == 0) {
-                shortest.setCompletionTime(currentTime);
-                shortest.setTurnAroundTime(shortest.getCompletionTime() - shortest.getArrivalTime());
-                shortest.setWaitingTime(shortest.getTurnAroundTime() - shortest.getOriginalBurstTime());
-                completed++;
-            }
+            currentTime += shortest.getBurstTime();
+            shortest.setCompletionTime(currentTime);
+            shortest.setTurnAroundTime(shortest.getCompletionTime() - shortest.getArrivalTime());
+            shortest.setWaitingTime(shortest.getTurnAroundTime() - shortest.getOriginalBurstTime());
+            list.remove(shortest);
         }
+
+        return currentTime; // pass to next queue
     }
 }
-

@@ -55,14 +55,16 @@ public class MLQScheduler {
      * Queue 1 (RR2) → Queue 2 (RR3) → Queue 3 (STCF)
      */
     public void executeAll() {
+        int globalTime = 0; //start from time 0
+
         System.out.println("Executing Queue 1 (RR - Quantum 2)");
-        queue1.execute();
+        globalTime = queue1.execute(globalTime);
 
         System.out.println("Executing Queue 2 (RR - Quantum 3)");
-        queue2.execute();
+        globalTime = queue2.execute(globalTime);
 
         System.out.println("Executing Queue 3 (STCF)");
-        queue3.execute();
+        globalTime = queue3.execute(globalTime);
     }
 
     /**
