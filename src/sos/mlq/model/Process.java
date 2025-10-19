@@ -5,12 +5,13 @@ package sos.mlq.model;
  * Each process has an ID, burst time, arrival time, queue level, and calculated metrics.
  *
  * @author Laura
- * @version 1.0
+ * @version 1.1
  * @since 2025-2
  */
 public class Process {
     private String label;   // Process name or ID (e.g., A, B, C)
     private int burstTime;  // Total CPU time required
+    private int originalBurstTime; // Stores the original burst time for calculations
     private int arrivalTime; // When the process arrives to the system
     private int queueLevel;  // The queue this process belongs to (1, 2, or 3)
 
@@ -18,7 +19,7 @@ public class Process {
     private int waitingTime;
     private int completionTime;
     private int responseTime;
-    private int turnaroundTime;
+    private int turnAroundTime;
 
     /**
      * Constructor that initializes a process with its basic attributes.
@@ -31,6 +32,7 @@ public class Process {
     public Process(String label, int burstTime, int arrivalTime, int queueLevel) {
         this.label = label;
         this.burstTime = burstTime;
+        this.originalBurstTime = burstTime; // ← keeps the original value
         this.arrivalTime = arrivalTime;
         this.queueLevel = queueLevel;
     }
@@ -43,6 +45,9 @@ public class Process {
 
     public int getBurstTime() {
         return burstTime;
+    }
+    public int getOriginalBurstTime() {
+        return originalBurstTime;
     }
 
     public int getArrivalTime() {
@@ -77,12 +82,16 @@ public class Process {
         this.responseTime = responseTime;
     }
 
-    public int getTurnaroundTime() {
-        return turnaroundTime;
+    public int getTurnAroundTime() {
+        return turnAroundTime;
     }
 
-    public void setTurnaroundTime(int turnaroundTime) {
-        this.turnaroundTime = turnaroundTime;
+    public void setTurnAroundTime(int turnaroundTime) {
+        this.turnAroundTime = turnaroundTime;
+    }
+
+    public void setBurstTime(int burstTime) {
+        this.burstTime = burstTime;
     }
 
     /**
@@ -94,4 +103,6 @@ public class Process {
     public String toString() {
         return label + " (BT=" + burstTime + ", AT=" + arrivalTime + ", Q=" + queueLevel + ")";
     }
+
+
 }
