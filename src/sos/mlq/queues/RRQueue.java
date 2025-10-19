@@ -2,7 +2,6 @@ package sos.mlq.queues;
 
 import sos.mlq.model.Process;
 import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * Implements a simple Round Robin (RR) scheduling queue.
@@ -16,7 +15,7 @@ import java.util.Queue;
  * and Turnaround Time (TAT).
  *
  * @author Laura
- * @version 1.0
+ * @version 1.3
  * @since 2025-10
  */
 public class RRQueue extends SchedulerQueue {
@@ -35,6 +34,9 @@ public class RRQueue extends SchedulerQueue {
      * Executes all processes in this Round Robin queue.
      * Each process receives CPU time equal to the quantum.
      * If the process is not completed, it is added again to the queue.
+     *
+     * @param startTime global time when this queue starts execution
+     * @return the global time after finishing all processes in this queue
      */
     @Override
     public int execute(int startTime) {
