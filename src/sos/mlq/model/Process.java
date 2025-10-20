@@ -35,7 +35,7 @@ public class Process {
     public Process(String label, int burstTime, int arrivalTime, int queueLevel) {
         this.label = label;
         this.burstTime = burstTime;
-        this.originalBurstTime = burstTime; // ← keeps the original value
+        this.originalBurstTime = burstTime; // keeps the original value
         this.arrivalTime = arrivalTime;
         this.queueLevel = queueLevel;
         this.responseTime =-1; //means: not yet responded

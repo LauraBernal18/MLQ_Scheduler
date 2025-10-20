@@ -24,8 +24,8 @@ public class Main {
      */
 
     public static void main(String[] args) {
-        String inputFile = "src/resources/mlq003.txt";
-        String outputFile = "src/resources/output_mlq003.txt";
+        String inputFile = "src/resources/mlq002.txt";
+        String outputFile = "src/resources/output_mlq002.txt";
 
         try {
             // Read processes
