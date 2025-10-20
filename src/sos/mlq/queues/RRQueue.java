@@ -45,14 +45,9 @@ public class RRQueue extends SchedulerQueue {
         while (!processes.isEmpty()) {
             Process p = processes.poll(); // take first process from the queue
 
-            // if the process is arriving later, wait for it
-            if (p.getArrivalTime() > currentTime) {
-                currentTime = p.getArrivalTime();
-            }
-
             // if first time execution, record response time
             if (p.getResponseTime() == -1 && currentTime >= p.getArrivalTime()) {
-                p.setResponseTime(currentTime - p.getArrivalTime());
+                p.setResponseTime(currentTime);
             }
 
             // determine how much time it will run this turn
